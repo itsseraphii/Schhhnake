@@ -1,4 +1,5 @@
 import sys, pygame
+from constants import TARGET_FPS
 
 pygame.init()
 
@@ -10,8 +11,10 @@ speed = [1, 1]
 black = 0, 0, 0
 screen = pygame.display.set_mode(size, pygame.RESIZABLE)
 gameSurface = screen.copy()
+clock = pygame.time.Clock()
 
-ball = pygame.image.load("res/intro_ball.gif")
+ball = pygame.image.load("res/intro_ball.gif").convert_alpha()
+
 ballrect = ball.get_rect()
 
 while True:
@@ -34,3 +37,4 @@ while True:
     screen.blit(pygame.transform.scale(gameSurface, screen.get_size()), (0, 0))
 
     pygame.display.flip()
+    clock.tick(TARGET_FPS)
