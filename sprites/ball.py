@@ -1,5 +1,5 @@
 import pygame
-from renderer import Renderer
+from display import Renderer
 
 class Ball(pygame.sprite.Sprite):
     def __init__(self, image: pygame.Surface):

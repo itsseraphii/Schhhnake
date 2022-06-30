@@ -1,8 +1,9 @@
 import pygame
 
-from renderer import Renderer
+from display import Renderer
+from sprites import Ball
+
 from .state import State
-from ball import Ball
 
 class GameState(State):
     def __init__(self, game, renderer: Renderer):

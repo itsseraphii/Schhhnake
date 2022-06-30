@@ -1,9 +1,8 @@
 import sys, pygame
 from constants import TARGET_FPS
 
-from renderer import Renderer
-from states.gameState import GameState
-from states.menuState import MenuState
+from display import Renderer
+from states import GameState, MenuState
 
 class Game:
     def __init__(self):

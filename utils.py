@@ -1,5 +1,5 @@
 import pygame
-from renderer import Renderer
+from display import Renderer
 
 class Utils:
     # Returns the position of the mouse in the game window

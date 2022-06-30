@@ -1,4 +1,4 @@
-from renderer import Renderer
+from display import Renderer
 
 class State:
     def __init__(self, game, renderer: Renderer):

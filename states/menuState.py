@@ -1,10 +1,10 @@
 import pygame
-from button import Button
+from menus import Button
 from constants import EMERALD, GREEN_COLOR, HONEYDEW, ZOMP
 
-from renderer import Renderer
+from display import Renderer
 from utils import Utils
-from states.gameState import GameState
+from states import GameState
 
 class MenuState (GameState): 
     def __init__(self, game, renderer: Renderer):
