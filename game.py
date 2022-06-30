@@ -3,6 +3,7 @@ from constants import TARGET_FPS
 
 from renderer import Renderer
 from states.gameState import GameState
+from states.menuState import MenuState
 
 class Game:
     def __init__(self):
@@ -12,9 +13,10 @@ class Game:
         renderer = Renderer()
 
         self.dicStates = {
-            "game": GameState(self, renderer)
+            "game": GameState(self, renderer),
+            "menu": MenuState(self, renderer)
         }
-        self.curState = "game"
+        self.curState = "menu"
 
         self.clock = pygame.time.Clock()
 
