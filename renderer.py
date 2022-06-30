@@ -9,7 +9,7 @@ class Renderer:
 
     def __init__(self) -> None:
         self.screen = pygame.display.set_mode((Renderer.WIDTH, Renderer.HEIGHT), pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE)
-        self.gameSurface = self.screen.copy()
+        self.initialScreen = self.screen.copy()
 
 
     def resizeDisplay(self, newSize: tuple[int, int]) -> None:
@@ -17,13 +17,21 @@ class Renderer:
         self.screen = pygame.display.set_mode((newSize[0], height), pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE)
 
 
-    def render(self, spriteGroup: pygame.sprite.Group) -> None:
-        self.gameSurface.fill(Renderer.BACKGROUND_COLOR)
+    def clear(self):
+        self.initialScreen.fill(Renderer.BACKGROUND_COLOR)
 
+
+    def drawSpriteGroup(self, spriteGroup: pygame.sprite.Group) -> None:
         for sprite in spriteGroup.sprites():
             offsetRec = (sprite.rect[0], sprite.rect[1])
-            self.gameSurface.blit(sprite.image, offsetRec)
+            self.initialScreen.blit(sprite.image, offsetRec)
 
-        scaledGameSurface = pygame.transform.scale(self.gameSurface, self.screen.get_size())
-        self.screen.blit(scaledGameSurface, (0, 0))
+
+    def drawSurface(self, surface: pygame.Surface):
+        self.initialScreen.blit(surface, (0, 0))
+
+
+    def render(self):
+        scaledScreen = pygame.transform.scale(self.initialScreen, self.screen.get_size())
+        self.screen.blit(scaledScreen, (0, 0))
         pygame.display.flip()

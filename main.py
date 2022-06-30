@@ -21,7 +21,11 @@ while True:
         elif event.type == pygame.VIDEORESIZE:
             renderer.resizeDisplay(event.size)
 
+    renderer.clear()
+
     all_sprites.update()
-    renderer.render(all_sprites)
+    renderer.drawSpriteGroup(all_sprites)
+
+    renderer.render()
     
     clock.tick(TARGET_FPS)
