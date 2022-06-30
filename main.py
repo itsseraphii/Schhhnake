@@ -6,14 +6,14 @@ pygame.init()
 size = (1280, 720)
 aspectRatio = (16, 9)
 
-speed = [1, 1]
+speed = [2, 2]
 
 black = 0, 0, 0
 screen = pygame.display.set_mode(size, pygame.RESIZABLE)
 gameSurface = screen.copy()
 clock = pygame.time.Clock()
 
-ball = pygame.image.load("res/intro_ball.gif").convert_alpha()
+ball = pygame.image.load("res/intro_ball.gif")
 
 ballrect = ball.get_rect()
 
