@@ -25,9 +25,8 @@ class MenuState (State):
 
 
     def update(self) -> None:
-        for event in pygame.event.get():
-            if (event.type == pygame.MOUSEBUTTONDOWN):
-                self.game.switchState('game')
+        if pygame.event.peek(pygame.MOUSEBUTTONDOWN):
+            self.game.switchState('game')
         
 
 class Utils:

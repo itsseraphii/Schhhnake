@@ -1,4 +1,4 @@
-import pygame
+import sys, pygame
 from constants import TARGET_FPS
 
 from renderer import Renderer
@@ -23,6 +23,12 @@ class Game:
 
     def gameLoop(self) -> None:
         while True:
+            if (pygame.event.peek(pygame.QUIT)):
+                sys.exit()
+            elif pygame.event.peek(pygame.VIDEORESIZE):
+                event = pygame.event.get(pygame.VIDEORESIZE)[0]
+                self.renderer.resizeDisplay(event.size)
+
             self.renderer.clear()
 
             self.dicStates[self.curState].update()
@@ -36,7 +42,6 @@ class Game:
         self.dicStates[self.curState].onExitState()
         self.curState = newState
         self.dicStates[self.curState].onEnterState()
-        print(self.curState)
 
 
 if __name__ == "__main__":

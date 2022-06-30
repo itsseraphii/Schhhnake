@@ -14,10 +14,6 @@ class GameState(State):
 
 
     def update(self) -> None:
-        for event in pygame.event.get():
-            if event.type == pygame.VIDEORESIZE:
-                self.renderer.resizeDisplay(event.size)
-
         self.all_sprites.update()
 
 
