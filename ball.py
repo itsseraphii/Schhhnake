@@ -8,7 +8,10 @@ class Ball(pygame.sprite.Sprite):
 
        self.image = image
        self.rect = self.image.get_rect()
+       self.rect.x += 0
+       self.rect.y += 0
        self.speed = [5, 5]
+
 
     def update(self):
         self.rect.x += self.speed[0]

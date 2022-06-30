@@ -12,21 +12,18 @@ class Renderer:
         self.gameSurface = self.screen.copy()
 
 
-    def draw(self, surfaceToDraw: pygame.Surface, position: tuple) -> None:
-        self.gameSurface.blit(surfaceToDraw, position)
-        self.screen.blit(pygame.transform.scale(self.gameSurface, self.screen.get_size()), (0, 0))
-
-
     def resizeDisplay(self, newSize: tuple[int, int]) -> None:
         height = Renderer.ASPECT_RATIO[1] * newSize[0] // Renderer.ASPECT_RATIO[0]
         self.screen = pygame.display.set_mode((newSize[0], height), pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE)
 
 
-    def render(self, lstSpriteGroup: list[pygame.sprite.Group]) -> None:
+    def render(self, spriteGroup: pygame.sprite.Group) -> None:
         self.gameSurface.fill(Renderer.BACKGROUND_COLOR)
 
-        for spriteGroup in lstSpriteGroup:
-            spriteGroup.draw(self.gameSurface)
+        for sprite in spriteGroup.sprites():
+            offsetRec = (sprite.rect[0], sprite.rect[1])
+            self.gameSurface.blit(sprite.image, offsetRec)
 
-        self.screen.blit(pygame.transform.scale(self.gameSurface, self.screen.get_size()), (0, 0))
+        scaledGameSurface = pygame.transform.scale(self.gameSurface, self.screen.get_size())
+        self.screen.blit(scaledGameSurface, (0, 0))
         pygame.display.flip()

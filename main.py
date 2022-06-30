@@ -22,6 +22,6 @@ while True:
             renderer.resizeDisplay(event.size)
 
     all_sprites.update()
+    renderer.render(all_sprites)
+    
     clock.tick(TARGET_FPS)
-
-    renderer.render([all_sprites])
