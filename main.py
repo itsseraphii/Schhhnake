@@ -1,10 +1,11 @@
 import sys, pygame
-from constants import TARGET_FPS
+from constants import TARGET_FPS, GREEN_COLOR
 
 from renderer import Renderer
 from ball import Ball
 
 pygame.init()
+pygame.font.init()
 
 ball = pygame.image.load("res/intro_ball.gif")
 renderer = Renderer()
@@ -14,7 +15,7 @@ clock = pygame.time.Clock()
 all_sprites = pygame.sprite.Group()
 all_sprites.add(Ball(ball))
 
-while True:
+while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: 
             pygame.display.quit()
