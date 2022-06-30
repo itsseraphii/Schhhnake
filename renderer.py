@@ -4,6 +4,7 @@ class Renderer:
     ASPECT_RATIO = (16, 9)
     WIDTH = 1280
     HEIGHT = 720
+    SURFACE_SIZE = WIDTH, HEIGHT
     BACKGROUND_COLOR = (0, 0, 0)
 
 

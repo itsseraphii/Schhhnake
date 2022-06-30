@@ -1,5 +1,6 @@
 import sys, pygame
 from constants import TARGET_FPS, GREEN_COLOR
+from menu import Menu
 
 from renderer import Renderer
 from ball import Ball
@@ -26,6 +27,9 @@ while 1:
 
     all_sprites.update()
     renderer.drawSpriteGroup(all_sprites)
+
+    menu = Menu()
+    renderer.drawSurface(menu.drawSurface())
 
     renderer.render()
     
