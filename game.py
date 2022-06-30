@@ -10,27 +10,33 @@ class Game:
         pygame.init()
         pygame.font.init()
 
-        renderer = Renderer()
+        self.renderer = Renderer()
 
         self.dicStates = {
-            "game": GameState(self, renderer),
-            "menu": MenuState(self, renderer)
+            "game": GameState(self, self.renderer),
+            "menu": MenuState(self, self.renderer)
         }
         self.curState = "menu"
 
         self.clock = pygame.time.Clock()
 
-    def gameLoop(self):
+
+    def gameLoop(self) -> None:
         while True:
+            self.renderer.clear()
+
             self.dicStates[self.curState].update()
-            self.dicStates[self.curState].render()
+            self.dicStates[self.curState].draw()
+
+            self.renderer.render()
             self.clock.tick(TARGET_FPS)
 
 
-    def switchState(self, newState: str):
+    def switchState(self, newState: str) -> None:
         self.dicStates[self.curState].onExitState()
         self.curState = newState
         self.dicStates[self.curState].onEnterState()
+        print(self.curState)
 
 
 if __name__ == "__main__":

@@ -5,17 +5,18 @@ class State:
         self.renderer = renderer
         self.game = game
 
-    def update(self):
+
+    def update(self) -> None:
         pass
 
 
-    def render(self):
+    def draw(self) -> None:
         pass
 
 
-    def onExitState(self):
+    def onExitState(self) -> None:
         pass
 
 
-    def onEnterState(self):
+    def onEnterState(self) -> None:
         pass

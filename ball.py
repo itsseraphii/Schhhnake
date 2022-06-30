@@ -1,4 +1,3 @@
-from importlib.util import spec_from_file_location
 import pygame
 from renderer import Renderer
 
