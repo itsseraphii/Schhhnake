@@ -1,4 +1,6 @@
+from typing import NamedTuple
 from display import Renderer
+import pygame
 
 class State:
     def __init__(self, game, renderer: Renderer):
@@ -18,5 +20,5 @@ class State:
         pass
 
 
-    def onEnterState(self) -> None:
+    def onEnterState(self, payload: NamedTuple) -> None:
         pass

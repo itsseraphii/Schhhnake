@@ -28,11 +28,11 @@ class Renderer:
             self.initialScreen.blit(sprite.image, offsetRec)
 
 
-    def drawSurface(self, surface: pygame.Surface):
-        self.initialScreen.blit(surface, (0, 0))
+    def drawSurface(self, surface: pygame.Surface, position: tuple[int, int] = (0, 0)) -> None:
+        self.initialScreen.blit(surface, position)
 
 
-    def render(self):
+    def render(self) -> None:
         scaledScreen = pygame.transform.scale(self.initialScreen, self.screen.get_size())
         self.screen.blit(scaledScreen, (0, 0))
         pygame.display.flip()

@@ -2,14 +2,12 @@ import pygame
 from display import Renderer
 
 class Ball(pygame.sprite.Sprite):
-    def __init__(self, image: pygame.Surface):
+    def __init__(self, image: pygame.Surface, initialSpeed: tuple[int, int] = (5, 5)):
        pygame.sprite.Sprite.__init__(self)
 
        self.image = image
        self.rect = self.image.get_rect()
-       self.rect.x += 0
-       self.rect.y += 0
-       self.speed = [5, 5]
+       self.speed = initialSpeed
 
 
     def update(self):
