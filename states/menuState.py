@@ -15,8 +15,8 @@ class MenuState (State):
         self.smolSnakeFont = pygame.font.Font('./res/SnakeFont.ttf', 24)
         self.extraSmolSnakeFont = pygame.font.Font('./res/SnakeFont.ttf', 12)
         playButtonRect = pygame.Rect(0, 0, 150, 50)
-        self.playButton = Button(playButtonRect, (Renderer.WIDTH/2, Renderer.HEIGHT/2+200), EMERALD, ZOMP, HONEYDEW, self.extraSmolSnakeFont, "press to start", self.menuAction)
-
+        playButtonRect.center = (Renderer.WIDTH/2, Renderer.HEIGHT/2 + 150)
+        self.playButton = Button(playButtonRect, "press to start", self.menuAction)
 
     def draw(self) -> None:
         self.playButton.draw(self.surf)
