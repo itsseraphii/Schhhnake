@@ -4,13 +4,15 @@ class Renderer:
     ASPECT_RATIO = (16, 9)
     WIDTH = 1280
     HEIGHT = 720
-    SURFACE_SIZE = WIDTH, HEIGHT
-    BACKGROUND_COLOR = (0, 0, 0)
+    SURFACE_SIZE = (WIDTH, HEIGHT)
+    BACKGROUND_COLOR = (74, 74, 74)
 
 
     def __init__(self) -> None:
         self.screen = pygame.display.set_mode((Renderer.WIDTH, Renderer.HEIGHT), pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE)
         self.initialScreen = self.screen.copy()
+        self.cameraOffset = pygame.math.Vector2()
+        self.targetPos = self.screen.get_rect().center
 
 
     def resizeDisplay(self, newSize: tuple[int, int]) -> None:
@@ -18,18 +20,25 @@ class Renderer:
         self.screen = pygame.display.set_mode((newSize[0], height), pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE)
 
 
-    def clear(self):
-        self.initialScreen.fill(Renderer.BACKGROUND_COLOR)
+    def fill(self, color: tuple[int, int, int]) -> None:
+        self.initialScreen.fill(color)
+
+
+    def computeCameraOffset(self) -> None:
+        self.cameraOffset = pygame.math.Vector2(self.targetPos) - pygame.math.Vector2(self.initialScreen.get_size()) / 2
 
 
     def drawSpriteGroup(self, spriteGroup: pygame.sprite.Group) -> None:
+        self.computeCameraOffset()
         for sprite in spriteGroup.sprites():
-            offsetRec = (sprite.rect[0], sprite.rect[1])
-            self.initialScreen.blit(sprite.image, offsetRec)
+            offsetPos = (sprite.rect.x, sprite.rect.y) - self.cameraOffset
+            self.initialScreen.blit(sprite.image, offsetPos)
 
 
     def drawSurface(self, surface: pygame.Surface, position: tuple[int, int] = (0, 0)) -> None:
-        self.initialScreen.blit(surface, position)
+        self.computeCameraOffset()
+        offsetPos = position - self.cameraOffset
+        self.initialScreen.blit(surface, offsetPos)
 
 
     def render(self) -> None:

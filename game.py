@@ -41,7 +41,7 @@ class Game:
                 self.nextState = None
                 self.nextStatePayload = None
 
-            self.renderer.clear()
+            self.renderer.fill(Renderer.BACKGROUND_COLOR)
 
             self.dicStates[self.curState].update()
             self.dicStates[self.curState].draw()

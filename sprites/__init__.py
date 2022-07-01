@@ -1,1 +1,1 @@
-from .ball import *
+from .player import *

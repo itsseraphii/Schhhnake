@@ -3,7 +3,7 @@ from typing import NamedTuple
 import pygame
 
 from display import Renderer
-from sprites import Ball
+from sprites import Player
 
 from .state import State
 
@@ -17,8 +17,9 @@ class InGameStatePayload(NamedTuple):
 class InGameState(State):
     def __init__(self, game, renderer: Renderer):
         super().__init__(game, renderer)
-        self.ball_surf = pygame.image.load("res/intro_ball.gif")
-        self.font = pygame.font.Font('./res/SnakeFont.ttf', 24)
+
+        self.backgroundSurf = pygame.image.load("res/map.png")
+        self.playerSurf = pygame.image.load("res/player.png")
 
 
     def update(self) -> None:
@@ -26,19 +27,18 @@ class InGameState(State):
             if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
                 self.game.switchState(InGameState, InGameStatePayload(f'Niveau {self.curLevel}', self.curLevel + 1))
 
-        self.all_sprites.update()
+        self.renderer.targetPos = self.player.rect.center  
+        self.player.update()
 
 
     def draw(self) -> None:
-        self.renderer.drawSpriteGroup(self.all_sprites)
+        self.renderer.drawSurface(self.backgroundSurf, (0, 0))
+        self.renderer.drawSurface(self.player.image, self.player.rect.topleft)
 
 
     def onEnterState(self, payload: InGameStatePayload) -> None:
         self.curLevel = payload.level
-        
-        self.all_sprites = pygame.sprite.Group()
-        self.all_sprites.add(Ball(self.ball_surf, [self.curLevel * 5, self.curLevel * 5]))
-        
+        self.player = Player(self.playerSurf, center=(self.backgroundSurf.get_width()/2, self.backgroundSurf.get_height()/2))  
 
 
     def onExitState(self) -> None:
