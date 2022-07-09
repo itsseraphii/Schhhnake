@@ -1,6 +1,7 @@
 from pkg_resources import EGG_DIST
 import pygame
 import pygame_menu
+import numpy
 from menus import Button
 from math import floor
 from constants import BLACK, EGGPLANT, EMERALD, GREEN_COLOR, HONEYDEW, ZOMP
@@ -19,6 +20,10 @@ class MenuState (State):
         self.cool_snake = pygame.image.load('./res/shnake.png')
         self.bigSnakeFont = pygame.font.Font('./res/SnakeFont.ttf', 72)
         self.smolSnakeFont = pygame.font.Font('./res/SnakeFont.ttf', 24)
+        self.rows = 17
+        self.columns = 17
+        self.appleSpawn = 1
+        self.delay = 6
 
         self.setupMenu()
 
@@ -31,6 +36,10 @@ class MenuState (State):
         self.surf.blit(self.smolSnakeFont.render("Centering text is hard",
                        True, GREEN_COLOR), (Renderer.WIDTH-450, Renderer.HEIGHT-50))
 
+        for i in range(10):
+            self.surf.blit(self.cool_snake, (numpy.random.randint(
+                0, Renderer.WIDTH - 100), numpy.random.randint(0, Renderer.HEIGHT - 100)))
+
         self.surf.blit(self.cool_snake, (900, 150))
 
         self.renderer.drawSurface(self.surf)
@@ -39,7 +48,8 @@ class MenuState (State):
         self.menu.update(self.game.events)
 
     def menuAction(self) -> None:
-        self.game.switchState("InGameState", InGameStatePayload("Niveau 1", 1))
+        self.game.switchState(
+            "InGameState", InGameStatePayload(self.rows, self.columns, self.appleSpawn, self.delay, 2))
 
     def setupMenu(self) -> None:
         cool_theme = pygame_menu.themes.THEME_GREEN.copy()
@@ -65,13 +75,13 @@ class MenuState (State):
         self.menu.add.button('Quit', pygame_menu.events.EXIT)
 
     def setRow(self, value: int) -> None:
-        self.game.rows = floor(value)
+        self.rows = floor(value)
 
     def setColumn(self, value: int) -> None:
-        self.game.columns = floor(value)
+        self.columns = floor(value)
 
     def setAppleSpawn(self, value: int) -> None:
-        self.game.appleSpawn = floor(value)
+        self.appleSpawn = floor(value)
 
     def setDelay(self, value: int) -> None:
-        self.game.delay = floor(value)
+        self.delay = floor(value)

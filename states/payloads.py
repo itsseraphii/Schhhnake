@@ -1,5 +1,8 @@
 from typing import NamedTuple
 
 class InGameStatePayload(NamedTuple):
-    text: str
-    level: int
+    nbRows: int
+    nbColunms: int
+    nbAppleOnScreen: int
+    nbFrameBeforeNextInput: int
+    initialSnakeLength: int

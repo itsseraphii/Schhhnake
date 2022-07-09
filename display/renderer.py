@@ -1,5 +1,7 @@
 import pygame
 
+from sprites import CameraGroup
+
 class Renderer:
     ASPECT_RATIO = (16, 9)
     WIDTH = 1280
@@ -11,7 +13,6 @@ class Renderer:
     def __init__(self) -> None:
         self.screen = pygame.display.set_mode((Renderer.WIDTH, Renderer.HEIGHT), pygame.HWSURFACE|pygame.DOUBLEBUF)
         self.initialScreen = self.screen.copy()
-        self.cameraOffset = pygame.math.Vector2()
         self.target = None
 
 
@@ -25,22 +26,28 @@ class Renderer:
         self.initialScreen.fill(color)
 
 
-    def computeCameraOffset(self) -> None:
-        targetPos = self.initialScreen.get_rect().center if self.target is None else self.target.rect.center
-        self.cameraOffset = pygame.math.Vector2(targetPos) - pygame.math.Vector2(self.initialScreen.get_size()) / 2
+    def computeCameraOffset(self) -> pygame.math.Vector2:
+        targetPos = self.initialScreen.get_rect().center if self.target is None else self.target
+        return pygame.math.Vector2(targetPos) - pygame.math.Vector2(self.initialScreen.get_size()) / 2
 
 
-    def drawSpriteGroup(self, spriteGroup: pygame.sprite.Group) -> None:
-        self.computeCameraOffset()
-        for sprite in spriteGroup.sprites():
-            offsetPos = (sprite.rect.x, sprite.rect.y) - self.cameraOffset
-            self.initialScreen.blit(sprite.image, offsetPos)
+    def drawCameraGroup(self, spriteGroup: CameraGroup) -> None:
+        cameraOffset = self.computeCameraOffset()
+        spriteGroup.customDraw(self.initialScreen, cameraOffset)
+
+
+    def drawCameraSurface(self, surface: pygame.Surface, position: tuple[int, int] = (0, 0)) -> None:
+        cameraOffset = self.computeCameraOffset()
+        offsetPos = position - cameraOffset
+        self.initialScreen.blit(surface, offsetPos)
 
 
     def drawSurface(self, surface: pygame.Surface, position: tuple[int, int] = (0, 0)) -> None:
-        self.computeCameraOffset()
-        offsetPos = position - self.cameraOffset
-        self.initialScreen.blit(surface, offsetPos)
+        self.initialScreen.blit(surface, position)
+
+
+    def setCameraTarget(self, target: tuple[int,int]) -> None:
+        self.target = target
 
 
     def render(self) -> None:

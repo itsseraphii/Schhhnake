@@ -1,5 +1,4 @@
 import pygame
-from display import Renderer
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, image: pygame.Surface, **kwargs):
