@@ -1,5 +1,6 @@
 TARGET_FPS = 60
 GREEN_COLOR = 0, 146, 32
+BLACK = 0, 0, 0
 
 # Colors
 BG_COLOR = 0, 0, 0

@@ -9,13 +9,14 @@ class Renderer:
 
 
     def __init__(self) -> None:
-        self.screen = pygame.display.set_mode((Renderer.WIDTH, Renderer.HEIGHT), pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE)
+        self.screen = pygame.display.set_mode((Renderer.WIDTH, Renderer.HEIGHT), pygame.HWSURFACE|pygame.DOUBLEBUF)
         self.initialScreen = self.screen.copy()
         self.cameraOffset = pygame.math.Vector2()
         self.target = None
 
 
     def resizeDisplay(self, newSize: tuple[int, int]) -> None:
+        # Currently, the display is not resizable. This function is never called
         height = Renderer.ASPECT_RATIO[1] * newSize[0] // Renderer.ASPECT_RATIO[0]
         self.screen = pygame.display.set_mode((newSize[0], height), pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE)
 

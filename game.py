@@ -30,9 +30,8 @@ class Game:
             if (pygame.event.peek(pygame.QUIT)):
                 pygame.quit()
                 sys.exit()
-            elif pygame.event.peek(pygame.VIDEORESIZE):
-                event = pygame.event.get(pygame.VIDEORESIZE)[0]
-                self.renderer.resizeDisplay(event.size)
+
+            self.events = pygame.event.get()
 
             if self.nextState is not None:
                 self.dicStates[self.curState].onExitState()

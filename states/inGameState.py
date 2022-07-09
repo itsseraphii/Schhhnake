@@ -15,7 +15,7 @@ class InGameState(State):
 
 
     def update(self) -> None:
-        for event in pygame.event.get():
+        for event in self.game.events:
             if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
                 self.game.switchState("InGameState", InGameStatePayload(f'Niveau {self.curLevel}', self.curLevel + 1))
             if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
