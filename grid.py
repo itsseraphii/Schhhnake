@@ -12,11 +12,13 @@ class Grid:
     WALL = 4
 
 
-    def __init__(self, nbRows: int, nbColumns: int):
+    def __init__(self, nbRows: int, nbColumns: int, nbAppleOnScreen: int):
         self.nbRows = nbRows
         self.nbColumns = nbColumns
         self.appleEaten = 4
         self.isDead = False
+        self.nbAppleOnScreen = nbAppleOnScreen
+        self.score = 0
 
         self.setupGrid()
 
@@ -37,6 +39,20 @@ class Grid:
         self.grid[0, :] = Grid.WALL
         self.grid[self.nbRows - 1, :] = Grid.WALL
 
+        for i in range(self.nbAppleOnScreen):
+            self.placeApple()
+
+
+    def placeApple(self):
+        goodPos = False
+        pos = (0, 0)
+        while not goodPos:
+            pos = (np.random.randint(1, self.nbRows - 1), np.random.randint(1, self.nbColumns - 1))
+            if self.grid[pos] == Grid.EMPTY:
+                goodPos = True
+        
+        self.grid[pos] = Grid.APPLE
+
 
     def moveHead(self):
         # Add the current headPos to the body
@@ -52,6 +68,8 @@ class Grid:
         # Eat apple if its present
         if self.grid[self.headPos] == Grid.APPLE:
             self.appleEaten+=1
+            self.score += 1
+            self.placeApple()
         self.grid[self.headPos] = Grid.HEAD
 
         # Make snake longer
@@ -69,4 +87,4 @@ class Grid:
 
     def die(self):
         self.isDead = True
-        print("You died")
+        print("You died - Score : {}".format(self.score))

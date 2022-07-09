@@ -31,5 +31,5 @@ class MenuState (State):
 
 
     def menuAction(self) -> None:
-        self.game.switchState("InGameState", InGameStatePayload(17, 17, 1, 6))
+        self.game.switchState("InGameState", InGameStatePayload(17, 17, 1, 8))
         

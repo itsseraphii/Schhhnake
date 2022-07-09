@@ -24,6 +24,7 @@ class InGameState(State):
         self.curFrame += 1
 
         if self.curFrame % self.nbFrameBeforeNextInput == 0:
+            old_dir = self.grid.direction
             keys = pygame.key.get_pressed()
             if keys[pygame.K_UP]:
                 self.grid.direction = (-1, 0)
@@ -69,7 +70,7 @@ class InGameState(State):
 
     def onEnterState(self, payload: InGameStatePayload) -> None:
         self.renderer.setCameraTarget(None)
-        self.grid = Grid(payload.nbRows + 2, payload.nbColunms + 2)
+        self.grid = Grid(payload.nbRows + 2, payload.nbColunms + 2, payload.nbAppleOnScreen)
         self.nbFrameBeforeNextInput = payload.nbFrameBeforeNextInput
         self.curFrame = 0
 
