@@ -1,7 +1,7 @@
 import pygame
 
 from display import Renderer
-from sprites import Player
+from sprites import Player, CameraGroup
 
 from .state import State
 from .payloads import InGameStatePayload
@@ -12,6 +12,7 @@ class InGameState(State):
 
         self.backgroundSurf = pygame.image.load("res/map.png")
         self.playerSurf = pygame.image.load("res/player.png")
+        self.camGroup = None
 
 
     def update(self) -> None:
@@ -25,16 +26,21 @@ class InGameState(State):
 
 
     def draw(self) -> None:
-        self.renderer.drawSurface(self.backgroundSurf, (0, 0))
-        self.renderer.drawSurface(self.player.image, self.player.rect.topleft)
+        self.renderer.drawCameraSurface(self.backgroundSurf, (0, 0))
+        self.renderer.drawCameraGroup(self.camGroup)
 
 
     def onEnterState(self, payload: InGameStatePayload) -> None:
         self.curLevel = payload.level
         self.player = Player(self.playerSurf, center=(self.backgroundSurf.get_width()/2, self.backgroundSurf.get_height()/2))  
-        self.renderer.target = self.player
+        self.renderer.setCameraTarget(self.player)
+        self.camGroup = CameraGroup(self.player)
+
 
 
     def onExitState(self) -> None:        
-        self.target = None
+        self.renderer.setCameraTarget(None)
+        self.camGroup = None
+        self.player = None
+        self.curLevel = 1
 
