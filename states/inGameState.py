@@ -23,18 +23,17 @@ class InGameState(State):
 
         self.curFrame += 1
 
-        if self.curFrame % self.nbFrameBeforeNextInput == 0:
-            old_dir = self.grid.direction
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_UP]:
-                self.grid.direction = (-1, 0)
-            elif keys[pygame.K_DOWN]:
-                self.grid.direction = (1, 0)
-            elif keys[pygame.K_RIGHT]:
-                self.grid.direction = (0, 1)
-            elif keys[pygame.K_LEFT]:
-                self.grid.direction = (0, -1)
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_UP]:
+            self.grid.direction = (-1, 0)
+        elif keys[pygame.K_DOWN]:
+            self.grid.direction = (1, 0)
+        elif keys[pygame.K_RIGHT]:
+            self.grid.direction = (0, 1)
+        elif keys[pygame.K_LEFT]:
+            self.grid.direction = (0, -1)
 
+        if self.curFrame % self.nbFrameBeforeNextInput == 0:
             self.grid.update()
 
             if self.grid.isDead:
