@@ -13,9 +13,9 @@ class Grid:
 
 
     def __init__(self, nbRows: int, nbColumns: int):
-        self.nbRows = nbRows + 1
-        self.nbColumns = nbColumns + 1
-        self.appleEaten = 99
+        self.nbRows = nbRows
+        self.nbColumns = nbColumns
+        self.appleEaten = 4
         self.isDead = False
 
         self.setupGrid()
@@ -29,13 +29,13 @@ class Grid:
 
 
     def setupGrid(self):
-        self.grid = np.zeros((self.nbRows + 1, self.nbColumns + 1), dtype=np.int8)
+        self.grid = np.zeros((self.nbRows, self.nbColumns), dtype=np.int8)
 
         # Setup walls on every side
         self.grid[:, 0] = Grid.WALL
-        self.grid[:, self.nbColumns] = Grid.WALL
+        self.grid[:, self.nbColumns - 1] = Grid.WALL
         self.grid[0, :] = Grid.WALL
-        self.grid[self.nbRows, :] = Grid.WALL
+        self.grid[self.nbRows - 1, :] = Grid.WALL
 
 
     def moveHead(self):
@@ -70,11 +70,3 @@ class Grid:
     def die(self):
         self.isDead = True
         print("You died")
-
-
-grid = Grid(9, 9)
-
-while not grid.isDead:
-    grid.update()
-    if not grid.isDead: print(grid.grid)
-
