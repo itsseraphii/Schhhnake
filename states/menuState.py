@@ -3,9 +3,9 @@ from menus import Button
 from constants import EMERALD, GREEN_COLOR, HONEYDEW, ZOMP
 
 from display import Renderer
-from states.inGameState import InGameStatePayload
-from utils import Utils
-from states import InGameState, State
+
+from .payloads import InGameStatePayload
+from .state import State
 
 class MenuState (State): 
     def __init__(self, game, renderer: Renderer):
@@ -31,5 +31,5 @@ class MenuState (State):
 
 
     def menuAction(self) -> None:
-        self.game.switchState(InGameState, InGameStatePayload("Niveau 1", 1))
+        self.game.switchState("InGameState", InGameStatePayload("Niveau 1", 1))
         

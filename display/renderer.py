@@ -12,7 +12,7 @@ class Renderer:
         self.screen = pygame.display.set_mode((Renderer.WIDTH, Renderer.HEIGHT), pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE)
         self.initialScreen = self.screen.copy()
         self.cameraOffset = pygame.math.Vector2()
-        self.targetPos = self.screen.get_rect().center
+        self.target = None
 
 
     def resizeDisplay(self, newSize: tuple[int, int]) -> None:
@@ -25,7 +25,8 @@ class Renderer:
 
 
     def computeCameraOffset(self) -> None:
-        self.cameraOffset = pygame.math.Vector2(self.targetPos) - pygame.math.Vector2(self.initialScreen.get_size()) / 2
+        targetPos = self.initialScreen.get_rect().center if self.target is None else self.target.rect.center
+        self.cameraOffset = pygame.math.Vector2(targetPos) - pygame.math.Vector2(self.initialScreen.get_size()) / 2
 
 
     def drawSpriteGroup(self, spriteGroup: pygame.sprite.Group) -> None:
