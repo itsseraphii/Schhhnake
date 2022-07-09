@@ -28,6 +28,8 @@ class InGameState(State):
     def draw(self) -> None:
         self.renderer.drawCameraSurface(self.backgroundSurf, (0, 0))
         self.renderer.drawCameraGroup(self.camGroup)
+        square = pygame.Surface((32, 32))
+        self.renderer.drawSurface(square, (0, 0))
 
 
     def onEnterState(self, payload: InGameStatePayload) -> None:
