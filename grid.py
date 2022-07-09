@@ -12,10 +12,10 @@ class Grid:
     WALL = 4
 
 
-    def __init__(self, nbRows: int, nbColumns: int, nbAppleOnScreen: int):
+    def __init__(self, nbRows: int, nbColumns: int, nbAppleOnScreen: int, initialSnakeLength: int):
         self.nbRows = nbRows
         self.nbColumns = nbColumns
-        self.appleEaten = 4
+        self.appleEaten = initialSnakeLength
         self.isDead = False
         self.nbAppleOnScreen = nbAppleOnScreen
         self.score = 0

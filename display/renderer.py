@@ -26,7 +26,7 @@ class Renderer:
 
 
     def computeCameraOffset(self) -> pygame.math.Vector2:
-        targetPos = self.initialScreen.get_rect().center if self.target is None else self.target.rect.center
+        targetPos = self.initialScreen.get_rect().center if self.target is None else self.target
         return pygame.math.Vector2(targetPos) - pygame.math.Vector2(self.initialScreen.get_size()) / 2
 
 
@@ -45,7 +45,7 @@ class Renderer:
         self.initialScreen.blit(surface, position)
 
 
-    def setCameraTarget(self, target: pygame.sprite.Sprite) -> None:
+    def setCameraTarget(self, target: tuple[int,int]) -> None:
         self.target = target
 
 

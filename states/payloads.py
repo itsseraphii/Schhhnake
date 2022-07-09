@@ -5,3 +5,4 @@ class InGameStatePayload(NamedTuple):
     nbColunms: int
     nbAppleOnScreen: int
     nbFrameBeforeNextInput: int
+    initialSnakeLength: int
