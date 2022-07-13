@@ -36,11 +36,17 @@ class MenuState (State):
         self.surf.blit(self.smolSnakeFont.render("Centering text is hard",
                        True, GREEN_COLOR), (Renderer.WIDTH-450, Renderer.HEIGHT-50))
 
-        for i in range(10):
-            self.surf.blit(self.cool_snake, (numpy.random.randint(
-                0, Renderer.WIDTH - 100), numpy.random.randint(0, Renderer.HEIGHT - 100)))
+        for i in range(5):
+            leftScreenPosition = numpy.random.randint(
+                1, Renderer.WIDTH/2 - 300)
+            rightScreenPosition = numpy.random.randint(
+                Renderer.WIDTH/2 + 200, Renderer.WIDTH - 100)
 
-        self.surf.blit(self.cool_snake, (900, 150))
+            self.surf.blit(self.cool_snake, (leftScreenPosition,
+                           numpy.random.randint(0, Renderer.HEIGHT - 100)))
+
+            self.surf.blit(self.cool_snake, (rightScreenPosition,
+                           numpy.random.randint(0, Renderer.HEIGHT - 100)))
 
         self.renderer.drawSurface(self.surf)
 
