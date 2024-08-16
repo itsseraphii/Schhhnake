@@ -66,7 +66,7 @@ class InGameState(State):
 
                 board.blit(tile, (j * InGameState.CELL_SIZE, i * InGameState.CELL_SIZE))
 
-        boardRect.center = (SCREEN_SIZE[0]/2, SCREEN_SIZE[1]/2)
+        boardRect.center = (SCREEN_SIZE[0]//2, SCREEN_SIZE[1]//2)
         screen.blit(board, boardRect)
 
     def onEnterState(self, payload: InGameStatePayload) -> None:

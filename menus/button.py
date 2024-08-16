@@ -1,13 +1,15 @@
+from typing import Callable
+
 import pygame
 
-from constants import SCREEN_SIZE
+from constants import EMERALD, HONEYDEW, SCREEN_SIZE, ZOMP
 
 
 class ButtonStyle:
     DEFAULT_FONT = './res/SnakeFont.ttf'
     DEFAULT_FONT_SIZE = 12
 
-    def __init__(self, textColor: tuple[int, int, int] = None, bgColor: tuple[int, int, int] = None, hoverColor: tuple[int, int, int] = None, font: pygame.font.Font = None):
+    def __init__(self, textColor: tuple[int, int, int] | None = None, bgColor: tuple[int, int, int] | None = None, hoverColor: tuple[int, int, int] | None = None, font: pygame.font.Font | None = None):
         self.textColor = textColor if textColor != None else HONEYDEW
         self.bgColor = bgColor if bgColor != None else ZOMP
         self.hoverColor = hoverColor if hoverColor != None else EMERALD
@@ -15,7 +17,7 @@ class ButtonStyle:
 
 
 class Button:
-    def __init__(self, rectangle: pygame.Rect, text: str, clickAction: callable, style: ButtonStyle = None):
+    def __init__(self, rectangle: pygame.Rect, text: str, clickAction: Callable, style: ButtonStyle | None = None):
         self.rect = rectangle
         self.text = text
         self.clickAction = clickAction

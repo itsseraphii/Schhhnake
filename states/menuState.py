@@ -40,9 +40,9 @@ class MenuState (State):
 
         for i in range(5):
             leftScreenPosition = numpy.random.randint(
-                1, width/2 - 300)
+                1, width//2 - 300)
             rightScreenPosition = numpy.random.randint(
-                width/2 + 200, width - 100)
+                width//2 + 200, width - 100)
 
             self.surf.blit(self.cool_snake, (leftScreenPosition,
                            numpy.random.randint(0, height - 100)))
@@ -62,7 +62,7 @@ class MenuState (State):
     def setupMenu(self) -> None:
         width, height = SCREEN_SIZE
 
-        cool_theme = pygame_menu.themes.THEME_GREEN.copy()
+        cool_theme = pygame_menu.themes.THEME_GREEN.copy()  # type: ignore
         cool_theme.background_color = BLACK
         cool_theme.widget_font = self.bigSnakeFont
         cool_theme.widget_font_color = EMERALD
@@ -82,7 +82,7 @@ class MenuState (State):
             'Nb Apple', default=1, range_values=(0, 25), increment=1, onchange=self.setAppleSpawn, range_text_value_enabled=False)
         self.menu.add.range_slider(
             'Delay', default=6, range_values=(6, 12), increment=1, onchange=self.setDelay, range_text_value_enabled=False)
-        self.menu.add.button('Quit', pygame_menu.events.EXIT)
+        self.menu.add.button('Quit', pygame_menu.events.EXIT)  # type: ignore
 
     def setRow(self, value: int) -> None:
         self.rows = floor(value)

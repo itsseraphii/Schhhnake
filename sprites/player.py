@@ -6,7 +6,7 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = image
-        self.rect = self.image.get_rect(**kwargs)
+        self.rect: pygame.Rect = self.image.get_rect(**kwargs)
         self.direction = pygame.math.Vector2()
         self.speed = 5
 
@@ -28,4 +28,4 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         self.input()
-        self.rect.center += self.direction * self.speed
+        self.rect.center += self.direction * self.speed  # type: ignore

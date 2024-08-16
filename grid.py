@@ -23,7 +23,7 @@ class Grid:
         # Place player on the center
         self.headPos = (self.nbRows // 2, self.nbColumns // 2)
         self.grid[self.headPos] = Grid.HEAD
-        self.direction = (0, 1)
+        self.direction: tuple[int, int] = (0, 1)
         self.queue = Queue()
 
     def setupGrid(self):
