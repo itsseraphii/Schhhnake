@@ -1,6 +1,6 @@
 import pygame
 
-from constants import EMERALD, HONEYDEW, SCREEN_SIZE, ZOMP
+from constants import SCREEN_SIZE
 
 
 class ButtonStyle:
@@ -12,6 +12,7 @@ class ButtonStyle:
         self.bgColor = bgColor if bgColor != None else ZOMP
         self.hoverColor = hoverColor if hoverColor != None else EMERALD
         self.font = font if font != None else pygame.font.Font(ButtonStyle.DEFAULT_FONT, ButtonStyle.DEFAULT_FONT_SIZE)
+
 
 class Button:
     def __init__(self, rectangle: pygame.Rect, text: str, clickAction: callable, style: ButtonStyle = None):
@@ -26,7 +27,7 @@ class Button:
             pygame.draw.rect(screen, self.style.hoverColor, self.rect.inflate(-5, -5))
         else:
             pygame.draw.rect(screen, self.style.bgColor, self.rect.inflate(-5, -5))
-        
+
         text = self.style.font.render(self.text, 1, self.style.textColor)
         textRect = text.get_rect()
         textRect.center = self.rect.center

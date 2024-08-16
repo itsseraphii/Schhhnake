@@ -3,11 +3,8 @@ from math import floor
 import numpy
 import pygame
 import pygame_menu
-from pkg_resources import EGG_DIST
 
-from constants import (BLACK, EGGPLANT, EMERALD, GREEN_COLOR, HONEYDEW,
-                       SCREEN_SIZE, ZOMP)
-from menus import Button
+from constants import BLACK, EMERALD, GREEN_COLOR, SCREEN_SIZE
 
 from .payloads import InGameStatePayload
 from .state import State

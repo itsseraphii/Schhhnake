@@ -1,7 +1,5 @@
 from typing import NamedTuple
 
-import pygame
-
 
 class State:
     def __init__(self, game):
@@ -10,14 +8,11 @@ class State:
     def update(self) -> None:
         pass
 
-
     def draw(self) -> None:
         pass
 
-
     def onExitState(self) -> None:
         pass
-
 
     def onEnterState(self, payload: NamedTuple) -> None:
         pass

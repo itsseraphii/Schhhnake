@@ -12,7 +12,7 @@ class Game:
         pygame.init()
         pygame.font.init()
 
-        self.screen = pygame.display.set_mode(SCREEN_SIZE, pygame.HWSURFACE|pygame.DOUBLEBUF)
+        self.screen = pygame.display.set_mode(SCREEN_SIZE, pygame.HWSURFACE | pygame.DOUBLEBUF)
 
         # States
         self.dicStates = {
@@ -23,9 +23,7 @@ class Game:
         self.nextState = None
         self.nextStatePayload = None
 
-
         self.clock = pygame.time.Clock()
-
 
     def gameLoop(self) -> None:
         while True:
@@ -50,7 +48,6 @@ class Game:
             pygame.display.flip()
 
             self.clock.tick(TARGET_FPS)
-
 
     def switchState(self, newStateStr: str, payload: NamedTuple = None) -> None:
         if self.nextState is None and newStateStr in self.dicStates:

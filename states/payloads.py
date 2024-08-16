@@ -1,5 +1,6 @@
 from typing import NamedTuple
 
+
 class InGameStatePayload(NamedTuple):
     nbRows: int
     nbColunms: int

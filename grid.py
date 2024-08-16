@@ -1,9 +1,6 @@
-import queue
-from enum import Enum
 from queue import Queue
 
 import numpy as np
-from requests import head
 
 
 class Grid:
@@ -51,9 +48,9 @@ class Grid:
                    np.random.randint(1, self.nbColumns - 1))
             if self.grid[pos] == Grid.EMPTY:
                 goodPos = True
-            
+
             i += 1
-        
+
         self.grid[pos] = Grid.APPLE
 
     def moveHead(self):

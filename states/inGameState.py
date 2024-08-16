@@ -1,12 +1,8 @@
-from collections import namedtuple
-from re import T
-from typing import NamedTuple
 
 import pygame
 
-from constants import SCREEN_SIZE, TARGET_FPS
+from constants import SCREEN_SIZE
 from grid import Grid
-from states.menuState import MenuState
 from states.payloads import InGameStatePayload
 
 from .state import State
@@ -42,8 +38,6 @@ class InGameState(State):
                 self.game.switchState("MenuState")
 
             self.lastDir = self.grid.direction
-        
-
 
     def draw(self, screen) -> None:
         board = pygame.Surface((self.grid.nbColumns * self.CELL_SIZE, self.grid.nbRows * self.CELL_SIZE))
@@ -58,7 +52,7 @@ class InGameState(State):
                         variant = not variant
                     if j % 2 == 0:
                         variant = not variant
-                    
+
                     if variant:
                         tile.fill((48, 48, 48))
                     else:
@@ -71,7 +65,6 @@ class InGameState(State):
                     tile.fill("red")
 
                 board.blit(tile, (j * InGameState.CELL_SIZE, i * InGameState.CELL_SIZE))
-        
 
         boardRect.center = (SCREEN_SIZE[0]/2, SCREEN_SIZE[1]/2)
         screen.blit(board, boardRect)
@@ -81,6 +74,5 @@ class InGameState(State):
         self.nbFrameBeforeNextInput = payload.nbFrameBeforeNextInput
         self.curFrame = 0
 
-    def onExitState(self) -> None:        
+    def onExitState(self) -> None:
         pass
-
