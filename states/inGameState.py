@@ -1,20 +1,22 @@
 from collections import namedtuple
 from re import T
 from typing import NamedTuple
-import pygame
-from constants import TARGET_FPS
 
-from display import Renderer
+import pygame
+
+from constants import SCREEN_SIZE, TARGET_FPS
 from grid import Grid
+from states.menuState import MenuState
 from states.payloads import InGameStatePayload
 
 from .state import State
 
+
 class InGameState(State):
     CELL_SIZE = 32
 
-    def __init__(self, game, renderer: Renderer):
-        super().__init__(game, renderer)
+    def __init__(self, game):
+        super().__init__(game)
 
     def update(self) -> None:
         for event in self.game.events:
@@ -43,7 +45,7 @@ class InGameState(State):
         
 
 
-    def draw(self) -> None:
+    def draw(self, screen) -> None:
         board = pygame.Surface((self.grid.nbColumns * self.CELL_SIZE, self.grid.nbRows * self.CELL_SIZE))
         boardRect = board.get_rect()
         tile = pygame.Surface((InGameState.CELL_SIZE, InGameState.CELL_SIZE))
@@ -70,13 +72,12 @@ class InGameState(State):
 
                 board.blit(tile, (j * InGameState.CELL_SIZE, i * InGameState.CELL_SIZE))
         
-        boardRect.center = (Renderer.WIDTH/2, Renderer.HEIGHT/2)
-        self.renderer.drawSurface(board, boardRect)
 
+        boardRect.center = (SCREEN_SIZE[0]/2, SCREEN_SIZE[1]/2)
+        screen.blit(board, boardRect)
 
     def onEnterState(self, payload: InGameStatePayload) -> None:
         self.grid = Grid(payload.nbRows + 2, payload.nbColunms + 2, payload.nbAppleOnScreen, payload.initialSnakeLength)
-        # self.renderer.setCameraTarget(self.grid.)
         self.nbFrameBeforeNextInput = payload.nbFrameBeforeNextInput
         self.curFrame = 0
 

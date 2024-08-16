@@ -1,6 +1,7 @@
+import queue
 from enum import Enum
 from queue import Queue
-import queue
+
 import numpy as np
 from requests import head
 
@@ -43,12 +44,16 @@ class Grid:
     def placeApple(self):
         goodPos = False
         pos = (0, 0)
-        while not goodPos:
+        maxIter = 69
+        i = 0
+        while not goodPos and i < maxIter:
             pos = (np.random.randint(1, self.nbRows - 1),
                    np.random.randint(1, self.nbColumns - 1))
             if self.grid[pos] == Grid.EMPTY:
                 goodPos = True
-
+            
+            i += 1
+        
         self.grid[pos] = Grid.APPLE
 
     def moveHead(self):

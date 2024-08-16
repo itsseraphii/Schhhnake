@@ -1,7 +1,7 @@
 import pygame
-from constants import EMERALD, HONEYDEW, ZOMP
 
-from utils import Utils
+from constants import EMERALD, HONEYDEW, SCREEN_SIZE, ZOMP
+
 
 class ButtonStyle:
     DEFAULT_FONT = './res/SnakeFont.ttf'
@@ -33,8 +33,23 @@ class Button:
         screen.blit(text, textRect)
 
     def isMouseOver(self):
-        return self.rect.collidepoint(Utils.getMousePos())
+        return self.rect.collidepoint(self.getMousePos())
 
     def update(self):
-        if (Utils.checkClicked(self.rect)):
+        if (self.checkClicked(self.rect)):
             self.clickAction()
+
+    def getMousePos(self) -> tuple[int, int]:
+        mousePos = pygame.mouse.get_pos()
+        windowSize = pygame.display.get_window_size()
+        return (self.regleDeTroisLol(mousePos[0], windowSize[0], SCREEN_SIZE[0]), self.regleDeTroisLol(mousePos[1], windowSize[1], SCREEN_SIZE[1]))
+
+    # Returns a rule of three for the mouse position
+    def regleDeTroisLol(self, currentValue, currentScreenMax, rendererScreenMax) -> int:
+        return currentValue*rendererScreenMax/currentScreenMax
+
+    def checkClicked(self, rectangle: pygame.Rect):
+        if rectangle.collidepoint(self.getMousePos()) and pygame.event.peek(pygame.MOUSEBUTTONDOWN):
+            pygame.event.get(pygame.MOUSEBUTTONDOWN)
+            return True
+        return False

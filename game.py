@@ -1,26 +1,28 @@
-import sys, pygame
+import sys
 from typing import NamedTuple
-from constants import TARGET_FPS
 
-from display import Renderer
-from states import InGameState, MenuState, State
+import pygame
+
+from constants import BG_COLOR, SCREEN_SIZE, TARGET_FPS
+from states import InGameState, MenuState
+
 
 class Game:
     def __init__(self):
         pygame.init()
         pygame.font.init()
 
-        # Registering services
-        self.renderer = Renderer()
+        self.screen = pygame.display.set_mode(SCREEN_SIZE, pygame.HWSURFACE|pygame.DOUBLEBUF)
 
         # States
         self.dicStates = {
-            InGameState.__name__: InGameState(self, self.renderer),
-            MenuState.__name__: MenuState(self, self.renderer)
+            InGameState.__name__: InGameState(self),
+            MenuState.__name__: MenuState(self)
         }
         self.curState = MenuState.__name__
         self.nextState = None
         self.nextStatePayload = None
+
 
         self.clock = pygame.time.Clock()
 
@@ -40,12 +42,13 @@ class Game:
                 self.nextState = None
                 self.nextStatePayload = None
 
-            self.renderer.fill(Renderer.BACKGROUND_COLOR)
+            self.screen.fill(BG_COLOR)
 
             self.dicStates[self.curState].update()
-            self.dicStates[self.curState].draw()
+            self.dicStates[self.curState].draw(self.screen)
 
-            self.renderer.render()
+            pygame.display.flip()
+
             self.clock.tick(TARGET_FPS)
 
 

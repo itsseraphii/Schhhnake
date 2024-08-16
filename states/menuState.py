@@ -1,12 +1,13 @@
-from pkg_resources import EGG_DIST
+from math import floor
+
+import numpy
 import pygame
 import pygame_menu
-import numpy
-from menus import Button
-from math import floor
-from constants import BLACK, EGGPLANT, EMERALD, GREEN_COLOR, HONEYDEW, ZOMP
+from pkg_resources import EGG_DIST
 
-from display import Renderer
+from constants import (BLACK, EGGPLANT, EMERALD, GREEN_COLOR, HONEYDEW,
+                       SCREEN_SIZE, ZOMP)
+from menus import Button
 
 from .payloads import InGameStatePayload
 from .state import State
@@ -14,9 +15,11 @@ from .state import State
 
 class MenuState (State):
 
-    def __init__(self, game, renderer: Renderer):
-        super().__init__(game, renderer)
-        self.surf = pygame.Surface(Renderer.SURFACE_SIZE)
+    def __init__(self, game):
+        super().__init__(game)
+
+        width, height = SCREEN_SIZE
+        self.surf = pygame.Surface(SCREEN_SIZE)
         self.cool_snake = pygame.image.load('./res/shnake.png')
         self.bigSnakeFont = pygame.font.Font('./res/SnakeFont.ttf', 72)
         self.smolSnakeFont = pygame.font.Font('./res/SnakeFont.ttf', 24)
@@ -27,28 +30,30 @@ class MenuState (State):
 
         self.setupMenu()
 
-    def draw(self) -> None:
+    def draw(self, screen) -> None:
+        width, height = SCREEN_SIZE
+
         self.menu.draw(self.surf)
         self.surf.blit(self.bigSnakeFont.render(
             "Schhhnake", True, GREEN_COLOR), (150, 50))
         self.surf.blit(self.smolSnakeFont.render(
             "A game where a snake eats balls", True, GREEN_COLOR), (150, 125))
         self.surf.blit(self.smolSnakeFont.render("Centering text is hard",
-                       True, GREEN_COLOR), (Renderer.WIDTH-450, Renderer.HEIGHT-50))
+                       True, GREEN_COLOR), (width-450, height-50))
 
         for i in range(5):
             leftScreenPosition = numpy.random.randint(
-                1, Renderer.WIDTH/2 - 300)
+                1, width/2 - 300)
             rightScreenPosition = numpy.random.randint(
-                Renderer.WIDTH/2 + 200, Renderer.WIDTH - 100)
+                width/2 + 200, width - 100)
 
             self.surf.blit(self.cool_snake, (leftScreenPosition,
-                           numpy.random.randint(0, Renderer.HEIGHT - 100)))
+                           numpy.random.randint(0, height - 100)))
 
             self.surf.blit(self.cool_snake, (rightScreenPosition,
-                           numpy.random.randint(0, Renderer.HEIGHT - 100)))
+                           numpy.random.randint(0, height - 100)))
 
-        self.renderer.drawSurface(self.surf)
+        screen.blit(self.surf, (0, 0))
 
     def update(self) -> None:
         self.menu.update(self.game.events)
@@ -58,6 +63,8 @@ class MenuState (State):
             "InGameState", InGameStatePayload(self.rows, self.columns, self.appleSpawn, self.delay, 2))
 
     def setupMenu(self) -> None:
+        width, height = SCREEN_SIZE
+
         cool_theme = pygame_menu.themes.THEME_GREEN.copy()
         cool_theme.background_color = BLACK
         cool_theme.widget_font = self.bigSnakeFont
@@ -66,7 +73,7 @@ class MenuState (State):
         cool_theme.widget_offset = (0, 200)
 
         self.menu = pygame_menu.Menu(
-            '', Renderer.WIDTH, Renderer.HEIGHT, theme=cool_theme, center_content=False)
+            '', width, height, theme=cool_theme, center_content=False)
         self.menu.get_menubar().hide()
 
         self.menu.add.button('Play', self.menuAction)
