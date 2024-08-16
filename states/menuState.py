@@ -5,6 +5,7 @@ import pygame
 import pygame_menu
 
 from constants import BLACK, EMERALD, GREEN_COLOR, SCREEN_SIZE
+from utils import resource_path
 
 from .payloads import InGameStatePayload
 from .state import State
@@ -17,9 +18,9 @@ class MenuState (State):
 
         width, height = SCREEN_SIZE
         self.surf = pygame.Surface(SCREEN_SIZE)
-        self.cool_snake = pygame.image.load('./res/shnake.png')
-        self.bigSnakeFont = pygame.font.Font('./res/SnakeFont.ttf', 72)
-        self.smolSnakeFont = pygame.font.Font('./res/SnakeFont.ttf', 24)
+        self.cool_snake = pygame.image.load(resource_path('./res/shnake.png'))
+        self.bigSnakeFont = pygame.font.Font(resource_path('./res/SnakeFont.ttf'), 72)
+        self.smolSnakeFont = pygame.font.Font(resource_path('./res/SnakeFont.ttf'), 24)
         self.rows = 17
         self.columns = 17
         self.appleSpawn = 1
