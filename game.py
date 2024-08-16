@@ -1,5 +1,5 @@
 import sys
-from typing import NamedTuple
+from typing import NamedTuple, Optional
 
 import pygame
 
@@ -49,7 +49,7 @@ class Game:
 
             self.clock.tick(TARGET_FPS)
 
-    def switchState(self, newStateStr: str, payload: NamedTuple | None = None) -> None:
+    def switchState(self, newStateStr: str, payload: Optional[NamedTuple] = None) -> None:
         if self.nextState is None and newStateStr in self.dicStates:
             self.nextState = newStateStr
             self.nextStatePayload = payload
